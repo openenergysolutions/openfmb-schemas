@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+// OpenFMB Model (61850-CIM) - 2018-10-11.eap
+// Thursday, October 11, 2018 5:53:46 PM UTC
+
+package resourcemodule;
+option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/resourcemodule";
+option java_package = "openfmb.resourcemodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.resourcemodule";
+
+import "uml.proto";
+import "commonmodule/commonmodule.proto";
+
+// Resource reading value
+message ResourceReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 4;
+}
+
+// Resource reading profile
+message ResourceReadingProfile
+{
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceReading resourceReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Current status information relevant to an entity.
+message ResourceStatus
+{
+    // UML inherited base object
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.AnalogStatusGGIO analogStatusGGIO = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.BooleanStatusGGIO booleanStatusGGIO = 3 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.IntegerStatusGGIO integerStatusGGIO = 4 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.StringStatusGGIO stringStatusGGIO = 5 [(uml.option_multiplicity_min) = 0];
+}
+
+// Resource status module
+message ResourceStatusProfile
+{
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceStatus resourceStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
