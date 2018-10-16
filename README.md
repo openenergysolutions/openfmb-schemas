@@ -10,4 +10,4 @@ The */protobuf* directory contains a set of files for using OpenFMB serialized u
 
 ## IDL
 
-The */IDL* directory contains a file for using OpenFMB inconjunction with a DDS implementation such as those from [RTI](https://www.rti.com/) or [TwinOaks](http://www.twinoakscomputing.com/). The IDL requires a commercial compiler.
+The */idl* directory contains an IDL schema file for using OpenFMB inconjunction with a DDS implementation such as those from [RTI](https://www.rti.com/) or [TwinOaks](http://www.twinoakscomputing.com/). The IDL requires a commercial compiler.
