@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Model (61850-CIM) - 2018-10-11.eap
-// Thursday, October 11, 2018 5:53:46 PM UTC
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
 
 package regulatormodule;
-option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/regulatormodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/regulatormodule";
 option java_package = "openfmb.regulatormodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.regulatormodule";
@@ -102,6 +102,7 @@ message RegulatorSystem
 // specified action.
 message RegulatorControlProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -175,6 +176,7 @@ message RegulatorEvent
 // Regulator event profile
 message RegulatorEventProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -201,6 +203,7 @@ message RegulatorReading
 // Regulator reading profile
 message RegulatorReadingProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -223,6 +226,7 @@ message RegulatorStatus
 // Regulator status profile
 message RegulatorStatusProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!

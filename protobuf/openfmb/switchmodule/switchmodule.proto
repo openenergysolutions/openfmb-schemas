@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Model (61850-CIM) - 2018-10-11.eap
-// Thursday, October 11, 2018 5:53:46 PM UTC
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
 
 package switchmodule;
-option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/switchmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/switchmodule";
 option java_package = "openfmb.switchmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.switchmodule";
@@ -42,6 +42,7 @@ message ProtectedSwitch
 // Switch control profile
 message SwitchDiscreteControlProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -75,6 +76,7 @@ message SwitchEvent
 // Switch event profile
 message SwitchEventProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -103,6 +105,7 @@ message SwitchReading
 // Switch reading profile
 message SwitchReadingProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -136,6 +139,7 @@ message SwitchStatus
 // Switch status profile
 message SwitchStatusProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -169,6 +173,7 @@ message SwitchControl
 // Switch control profile
 message SwitchControlProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Model (61850-CIM) - 2018-10-11.eap
-// Thursday, October 11, 2018 5:53:46 PM UTC
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
 
 package solarmodule;
-option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/solarmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/solarmodule";
 option java_package = "openfmb.solarmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.solarmodule";
@@ -84,6 +84,7 @@ message SolarInverter
 // Solar control profile
 message SolarControlProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -153,6 +154,7 @@ message SolarEvent
 // Solar event profile
 message SolarEventProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -179,6 +181,7 @@ message SolarReading
 // Solar reading profile
 message SolarReadingProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -210,6 +213,7 @@ message SolarStatus
 // Solar status profile
 message SolarStatusProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!

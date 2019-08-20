@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Model (61850-CIM) - 2018-10-11.eap
-// Thursday, October 11, 2018 5:53:46 PM UTC
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
 
 package breakermodule;
-option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/breakermodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
 option java_package = "openfmb.breakermodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.breakermodule";
@@ -45,6 +45,7 @@ message Breaker
 // Instructs an end device (or an end device group) to perform a specified action.
 message BreakerDiscreteControlProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -67,6 +68,7 @@ message BreakerEvent
 // Breaker event profile
 message BreakerEventProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -95,6 +97,7 @@ message BreakerReading
 // Breaker reading profile
 message BreakerReadingProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
@@ -117,6 +120,7 @@ message BreakerStatus
 // Breaker status profile
 message BreakerStatusProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!

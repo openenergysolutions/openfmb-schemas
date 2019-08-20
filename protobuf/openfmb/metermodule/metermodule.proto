@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Model (61850-CIM) - 2018-10-11.eap
-// Thursday, October 11, 2018 5:53:46 PM UTC
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
 
 package metermodule;
-option go_package = "github.com/mthollylab/go-openfmb-protobuf/openfmb/metermodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/metermodule";
 option java_package = "openfmb.metermodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.metermodule";
@@ -28,6 +28,7 @@ message MeterReading
 // Resource reading profile
 message MeterReadingProfile
 {
+    option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
