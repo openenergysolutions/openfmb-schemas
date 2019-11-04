@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// Friday, November 1, 2019 8:53:19 PM UTC
 
 package breakermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
@@ -31,6 +31,8 @@ message BreakerDiscreteControl
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
     BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.DeviceControl deviceControl = 4 [(uml.option_multiplicity_min) = 0];
 }
 
 // A mechanical switching device capable of making, carrying, and breaking currents under normal
@@ -114,7 +116,9 @@ message BreakerStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    repeated commonmodule.DeviceStatus deviceStatus = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Breaker status profile

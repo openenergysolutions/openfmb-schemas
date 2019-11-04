@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// Friday, November 1, 2019 8:53:19 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
@@ -856,6 +856,115 @@ message DEL
     CMV phsCA = 3;
 }
 
+// Generic control for switch, recloser and breaker.
+message DeviceControl
+{
+    // UML inherited base object
+    LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // ANSI 79 - AC Reclosing Relay / Auto Reclose
+    ControlSPC ANSI79LO = 2;
+    // Fault latch: LT01=51A OR 51B OR 51C
+    ControlSPC FaultLatch = 3;
+    // True if hot line tag added
+    ControlSPC HotLineTag = 4;
+    // True if there is an IED trouble.
+    ControlSPC IEDTrouble = 5;
+    // Reclose enabled
+    ControlSPC RecloseEnabled = 6;
+}
+
+// Behaviour or mode (BehaviourModeKind enumeration)
+enum BehaviourModeKind
+{
+    // Undefined
+     BehaviourModeKind_UNDEFINED = 0;
+    // Normal enabled state.
+     BehaviourModeKind_on = 1;
+    // Process is passively supervised.
+     BehaviourModeKind_blocked = 2;
+    // Function is operated but results are indicated as test results.
+     BehaviourModeKind_test = 3;
+    // Function is operated in test mode, but with no impact to the process.
+     BehaviourModeKind_test_blocked = 4;
+    // Function is inactive but shows its configuration capability.
+     BehaviourModeKind_off = 5;
+}
+
+message Optional_BehaviourModeKind
+{
+    BehaviourModeKind value = 1;
+}
+
+// Behavior mode kind. ENS stands for Enumerated status
+message ENS_BehaviourModeKind
+{
+    // Quality of the value in 'stVal'.
+    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Value of the data.
+    BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// State kind
+enum HealthKind
+{
+    // MISSING DOCUMENTATION!!!
+     HealthKind_none = 0;
+    // No problems, normal operation ("green").
+     HealthKind_OK = 1;
+    // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
+    // depending on the dedicated function/device.
+     HealthKind_Warning = 2;
+    // Severe problem, no operation possible ("red").
+     HealthKind_Alarm = 3;
+}
+
+message Optional_HealthKind
+{
+    HealthKind value = 1;
+}
+
+// &lt;&gt; Enumerated status (ENS)
+message ENS_HealthKind
+{
+    // Textual description of the data. In case it is used within the CDC LPL, the description refers
+    // to the logical node.
+    google.protobuf.StringValue d = 1;
+    // Value of the data.
+    HealthKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Logical node for event and status
+message LogicalNodeForEventAndStatus
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Behavior of the function
+    ENS_BehaviourModeKind Beh = 2;
+    // Asset health
+    ENS_HealthKind EEHealth = 3;
+}
+
+// Generic status for switch, recloser and breaker.
+message DeviceStatus
+{
+    // UML inherited base object
+    LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // ANSI 79 - AC Reclosing Relay / Auto Reclose
+    StatusSPS ANSI79LO = 2;
+    // Fault latch: LT01=51A OR 51B OR 51C
+    StatusSPS FaultLatch = 3;
+    // True if hot line tag added
+    StatusSPS HotLineTag = 4;
+    // True if there is an IED trouble.
+    StatusSPS IEDTrouble = 5;
+    // Reclose enabled
+    StatusSPS RecloseEnabled = 6;
+    // Remote enabled
+    StatusSPS RemoteEnabled = 7;
+}
+
 // Generic user of energy - a  point of consumption on the power system model.
 message EnergyConsumer
 {
@@ -959,39 +1068,6 @@ message ENG_PFSignKind
     PFSignKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Behaviour or mode (BehaviourModeKind enumeration)
-enum BehaviourModeKind
-{
-    // Undefined
-     BehaviourModeKind_UNDEFINED = 0;
-    // Normal enabled state.
-     BehaviourModeKind_on = 1;
-    // Process is passively supervised.
-     BehaviourModeKind_blocked = 2;
-    // Function is operated but results are indicated as test results.
-     BehaviourModeKind_test = 3;
-    // Function is operated in test mode, but with no impact to the process.
-     BehaviourModeKind_test_blocked = 4;
-    // Function is inactive but shows its configuration capability.
-     BehaviourModeKind_off = 5;
-}
-
-message Optional_BehaviourModeKind
-{
-    BehaviourModeKind value = 1;
-}
-
-// Behavior mode kind. ENS stands for Enumerated status
-message ENS_BehaviourModeKind
-{
-    // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Value of the data.
-    BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
 // DER operational state (DERGeneratorStateKind)
 enum DERGeneratorStateKind
 {
@@ -1073,35 +1149,6 @@ message ENS_GridConnectModeKind
     GridConnectModeKind stVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     string stValExtension = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// State kind
-enum HealthKind
-{
-    // MISSING DOCUMENTATION!!!
-     HealthKind_none = 0;
-    // No problems, normal operation ("green").
-     HealthKind_OK = 1;
-    // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
-    // depending on the dedicated function/device.
-     HealthKind_Warning = 2;
-    // Severe problem, no operation possible ("red").
-     HealthKind_Alarm = 3;
-}
-
-message Optional_HealthKind
-{
-    HealthKind value = 1;
-}
-
-// &lt;&gt; Enumerated status (ENS)
-message ENS_HealthKind
-{
-    // Textual description of the data. In case it is used within the CDC LPL, the description refers
-    // to the logical node.
-    google.protobuf.StringValue d = 1;
-    // Value of the data.
-    HealthKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -1194,17 +1241,6 @@ message IntegerStatusGGIO
     StatusINS IntIn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
-}
-
-// Logical node for event and status
-message LogicalNodeForEventAndStatus
-{
-    // UML inherited base object
-    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
-    // Behavior of the function
-    ENS_BehaviourModeKind Beh = 2;
-    // Asset health
-    ENS_HealthKind EEHealth = 3;
 }
 
 // The current state for a measurement. A state value is an instance of a measurement from a
