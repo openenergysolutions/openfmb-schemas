@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Friday, November 1, 2019 8:53:19 PM UTC
+// OpenFMB Operational Model (61850-CIM) (w ShuntModule + new status points).eap
+// Tuesday, November 5, 2019 2:28:24 PM UTC
 
 package generationmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/generationmodule";
