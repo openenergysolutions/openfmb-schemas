@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (w ShuntModule + new status points).eap
-// Friday, November 15, 2019 1:44:21 PM UTC
+// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
+// Tuesday, June 2, 2020 3:17:20 PM UTC
 
 package switchmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/switchmodule";

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (w ShuntModule + new status points).eap
-// Friday, November 15, 2019 1:44:21 PM UTC
+// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
+// Tuesday, June 2, 2020 3:17:20 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
@@ -418,13 +418,13 @@ message TimeQuality
 // information related to time model are available as requirements in Clause 21.
 message Timestamp
 {
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    uint32 fraction = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Second since epoch (1970-01-01T00:00:00Z)
     uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // IEC61850 time quality
     TimeQuality tq = 3;
+    // Fractional of the current second when the value of time stamp has been determined. It shall be
+    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    uint32 nanoseconds = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Unit definition (Unit)
@@ -447,10 +447,10 @@ message MV
     // is not the same as 'mag' of the constructed attribute class 'Vector'.
     AnalogueValue mag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'instMag', 'mag', 'range'.
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 2;
     // Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
     // 'range' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
     // Unit for: 'instMag', 'mag', 'subMag', 'rangeC'.
     Unit units = 4;
 }
@@ -576,10 +576,10 @@ message CMV
     // 'dbAng'), independently. See  'MV.mag'.
     Vector cVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 2;
     // Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     // of 'range', 'rangeAng' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
     // Units for: 'instCVal.mag', 'cVal.mag', 'subCVal.mag', 'rangeC'.
     Unit units = 4;
 }
@@ -626,11 +626,11 @@ message ControlDPC
 // normal Timestamp data type.
 message ControlTimestamp
 {
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    uint32 fraction = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Second since epoch (1970-01-01T00:00:00Z)
     uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Fractional of the current second when the value of time stamp has been determined. It shall be
+    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // ESS function kind
