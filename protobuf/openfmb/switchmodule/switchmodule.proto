@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
-// Tuesday, June 2, 2020 3:17:20 PM UTC
+// OpenFMB Operational Model (61850-CIM) (Duke working).eap
+// Tuesday, July 14, 2020 1:30:58 AM UTC
 
 package switchmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/switchmodule";
@@ -18,7 +18,9 @@ message SwitchDiscreteControlXSWI
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.ControlDPC Pos = 2;
+    commonmodule.PhaseDPC Pos = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ControlSPC ResetProtectionPickup = 3;
 }
 
 // Switch discrete control
@@ -30,8 +32,6 @@ message SwitchDiscreteControl
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
     SwitchDiscreteControlXSWI switchDiscreteControlXSWI = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.DeviceControl deviceControl = 4;
 }
 
 // A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
@@ -63,7 +63,7 @@ message SwitchEventXSWI
     // Dynamic test status
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch event
@@ -126,7 +126,9 @@ message SwitchStatusXSWI
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPS Pos = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Fault latch: LT01=51A OR 51B OR 51C
+    commonmodule.PhaseSPS ProtectionPickup = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch status
@@ -136,8 +138,6 @@ message SwitchStatus
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     SwitchStatusXSWI switchStatusXSWI = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.DeviceStatus deviceStatus = 3;
 }
 
 // Switch status profile

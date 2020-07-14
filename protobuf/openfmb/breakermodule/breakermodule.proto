@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
-// Tuesday, June 2, 2020 3:17:20 PM UTC
+// OpenFMB Operational Model (61850-CIM) (Duke working).eap
+// Tuesday, July 14, 2020 1:30:58 AM UTC
 
 package breakermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
@@ -12,14 +12,20 @@ option csharp_namespace = "openfmb.breakermodule";
 import "uml.proto";
 import "commonmodule/commonmodule.proto";
 
-// OpenFMB specialization for BreakerDiscreteControlProfile: Added blk  LN: Circuit breaker   Name:
-// XCBR
+// Reclose enabled
 message BreakerDiscreteControlXCBR
 {
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.ControlDPC Pos = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPC Pos = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    // by a circuit segment service.
+    commonmodule.ControlINC ProtectionMode = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ControlSPC RecloseEnabled = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ControlSPC ResetProtectionPickup = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Breaker discrete control class
@@ -31,8 +37,6 @@ message BreakerDiscreteControl
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
     BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.DeviceControl deviceControl = 4;
 }
 
 // A mechanical switching device capable of making, carrying, and breaking currents under normal
@@ -117,8 +121,6 @@ message BreakerStatus
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.DeviceStatus deviceStatus = 3;
 }
 
 // Breaker status profile

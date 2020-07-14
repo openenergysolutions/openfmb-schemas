@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
-// Tuesday, June 2, 2020 3:17:20 PM UTC
+// OpenFMB Operational Model (61850-CIM) (Duke working).eap
+// Tuesday, July 14, 2020 1:30:58 AM UTC
 
 package regulatormodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/regulatormodule";
@@ -32,7 +32,7 @@ message RegulatorControlATCC
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
     commonmodule.ControlSPC ParOp = 7;
     // (controllable) Tap position change to the specified value.
-    commonmodule.ControlISC TapPos = 8;
+    commonmodule.PhaseISC TapPos = 8;
 }
 
 // Point definition (Point)
@@ -128,12 +128,12 @@ message RegulatorEventAndStatusATCC
     // Line drop voltage due to line total impedance (forward power flow presumed) at rated current.
     commonmodule.ASG LDCZ = 5;
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    commonmodule.StatusSPC ParOp = 6;
+    commonmodule.StatusSPS ParOp = 6;
     // If true, there was an error in tap position change, or in tap indication (for instance, wrong
     // Binary Coded Decimal (BCD) code).
     commonmodule.StatusSPS TapOpErr = 7;
     // (controllable) Tap position change to the specified value.
-    commonmodule.StatusISC TapPos = 8;
+    commonmodule.PhaseINS TapPos = 8;
 }
 
 // Point definition (Point)

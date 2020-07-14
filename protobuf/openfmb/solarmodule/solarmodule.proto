@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
-// Tuesday, June 2, 2020 3:17:20 PM UTC
+// OpenFMB Operational Model (61850-CIM) (Duke working).eap
+// Tuesday, July 14, 2020 1:30:58 AM UTC
 
 package solarmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/solarmodule";
@@ -99,7 +99,7 @@ message SolarControlProfile
 message SolarPointStatus
 {
     // Enable frequency set point
-    commonmodule.ControlDPC frequencySetPointEnabled = 1;
+    commonmodule.StatusDPS frequencySetPointEnabled = 1;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 2;
     // Black start enable
@@ -109,13 +109,13 @@ message SolarPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 6;
+    commonmodule.StatusDPS reactivePwrSetPointEnabled = 6;
     // Enable real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 7;
+    commonmodule.StatusDPS realPwrSetPointEnabled = 7;
     // ESS state
     commonmodule.Optional_StateKind state = 8;
     // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 9;
+    commonmodule.StatusDPS voltageSetPointEnabled = 9;
 }
 
 // Specialized 61850 ZGEN class

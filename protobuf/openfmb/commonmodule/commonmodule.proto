@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (V2 Working).eap
-// Tuesday, June 2, 2020 3:17:20 PM UTC
+// OpenFMB Operational Model (61850-CIM) (Duke working).eap
+// Tuesday, July 14, 2020 1:30:58 AM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
@@ -418,12 +418,12 @@ message TimeQuality
 // information related to time model are available as requirements in Clause 21.
 message Timestamp
 {
+    reserved 1;
     // Second since epoch (1970-01-01T00:00:00Z)
     uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // IEC61850 time quality
     TimeQuality tq = 3;
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
     uint32 nanoseconds = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
@@ -463,7 +463,7 @@ message LogicalNode
 }
 
 // LN: Generic process I/O   Name: GGIO
-message AnalogStatusGGIO
+message AnalogEventAndStatusGGIO
 {
     // UML inherited base object
     LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
@@ -537,7 +537,7 @@ message StatusSPS
 }
 
 // LN: Generic process I/O   Name: GGIO
-message BooleanStatusGGIO
+message BooleanEventAndStatusGGIO
 {
     // UML inherited base object
     LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
@@ -611,6 +611,19 @@ message ConductingEquipmentTerminalReading
     Terminal terminal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// <<statistics>> Controllable analogue process value (APC)
+message ControlAPC
+{
+    // Service parameter that determines the control activity.
+    AnalogueValueCtl ctlVal = 1;
+    // Quality of the value in 'mxVal'.
+    Quality q = 2;
+    // Timestamp of the last change of the value in any of 'mxVal' or 'q'.
+    Timestamp t = 3;
+    // Units for: 'mxVal', 'subVal', 'minVal', 'maxVal', 'stepSize', 'ctlVal'.
+    Unit units = 4;
+}
+
 // Specialized DPC 61850 CDC class
 message ControlDPC
 {
@@ -626,10 +639,10 @@ message ControlDPC
 // normal Timestamp data type.
 message ControlTimestamp
 {
+    reserved 1;
     // Second since epoch (1970-01-01T00:00:00Z)
     uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
     uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
@@ -782,6 +795,19 @@ message ControlFSCC
     ControlScheduleFSCH islandControlScheduleFSCH = 3;
 }
 
+// &lt;&lt;statistics&gt;&gt; Controllable integer status (INC)
+message ControlINC
+{
+    // Service parameter that determines the control activity.
+    google.protobuf.Int32Value ctlVal = 1;
+    // Quality of the value in 'stVal'.
+    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of ‘stVal’, or the last change of value in ‘q’.
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Units for: 'stVal', 'subVal', 'minVal', 'maxVal', 'stepSize','ctlVal'.
+    Unit units = 4;
+}
+
 // Integer status setting (FC=SP) (ING_SP)
 message ControlING
 {
@@ -820,6 +846,12 @@ message ControlSPC
     // Service parameter that determines the control activity ('false' for off or deactivation, 'true'
     // for on or activation).
     bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Quality of ctlVal
+    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the ctlVal
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Unit of ctlVal
+    Unit units = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // The value of a control command which could either be a setpoint or a control schedule in curve. 
@@ -830,10 +862,12 @@ message ControlValue
 {
     // UML inherited base object
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
-    // The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control
-    // schedule in a message payload should be ignored.   It should also be presented in a status profile. 
-    // Any modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
-    google.protobuf.BoolValue modBlk = 2;
+    // The attribute modBlk is used to tag out a device. If it is TRUE, any setpoints and control in a
+    // message payload should be ignored.   It should also be presented in a status profile.  Any modBlk
+    // value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
+    google.protobuf.BoolValue modBlk = 3;
+    // If true, reset the device before executing any other controls.
+    google.protobuf.BoolValue reset = 4;
 }
 
 // Interval between two date and time points.
@@ -854,115 +888,6 @@ message DEL
     CMV phsBC = 2;
     // Value of phase C to phase A measurement.
     CMV phsCA = 3;
-}
-
-// Generic control for switch, recloser and breaker.
-message DeviceControl
-{
-    // UML inherited base object
-    LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // ANSI 79 - AC Reclosing Relay / Auto Reclose
-    ControlSPC ANSI79LO = 2;
-    // Fault latch: LT01=51A OR 51B OR 51C
-    ControlSPC FaultLatch = 3;
-    // True if hot line tag added
-    ControlSPC HotLineTag = 4;
-    // True if there is an IED trouble.
-    ControlSPC IEDTrouble = 5;
-    // Reclose enabled
-    ControlSPC RecloseEnabled = 6;
-}
-
-// Behaviour or mode (BehaviourModeKind enumeration)
-enum BehaviourModeKind
-{
-    // Undefined
-     BehaviourModeKind_UNDEFINED = 0;
-    // Normal enabled state.
-     BehaviourModeKind_on = 1;
-    // Process is passively supervised.
-     BehaviourModeKind_blocked = 2;
-    // Function is operated but results are indicated as test results.
-     BehaviourModeKind_test = 3;
-    // Function is operated in test mode, but with no impact to the process.
-     BehaviourModeKind_test_blocked = 4;
-    // Function is inactive but shows its configuration capability.
-     BehaviourModeKind_off = 5;
-}
-
-message Optional_BehaviourModeKind
-{
-    BehaviourModeKind value = 1;
-}
-
-// Behavior mode kind. ENS stands for Enumerated status
-message ENS_BehaviourModeKind
-{
-    // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Value of the data.
-    BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// State kind
-enum HealthKind
-{
-    // MISSING DOCUMENTATION!!!
-     HealthKind_none = 0;
-    // No problems, normal operation ("green").
-     HealthKind_OK = 1;
-    // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
-    // depending on the dedicated function/device.
-     HealthKind_Warning = 2;
-    // Severe problem, no operation possible ("red").
-     HealthKind_Alarm = 3;
-}
-
-message Optional_HealthKind
-{
-    HealthKind value = 1;
-}
-
-// &lt;&gt; Enumerated status (ENS)
-message ENS_HealthKind
-{
-    // Textual description of the data. In case it is used within the CDC LPL, the description refers
-    // to the logical node.
-    google.protobuf.StringValue d = 1;
-    // Value of the data.
-    HealthKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Logical node for event and status
-message LogicalNodeForEventAndStatus
-{
-    // UML inherited base object
-    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
-    // Behavior of the function
-    ENS_BehaviourModeKind Beh = 2;
-    // Asset health
-    ENS_HealthKind EEHealth = 3;
-}
-
-// Generic status for switch, recloser and breaker.
-message DeviceStatus
-{
-    // UML inherited base object
-    LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
-    // ANSI 79 - AC Reclosing Relay / Auto Reclose
-    StatusSPS ANSI79LO = 2;
-    // Fault latch: LT01=51A OR 51B OR 51C
-    StatusSPS FaultLatch = 3;
-    // True if hot line tag added
-    StatusSPS HotLineTag = 4;
-    // True if there is an IED trouble.
-    StatusSPS IEDTrouble = 5;
-    // Reclose enabled
-    StatusSPS RecloseEnabled = 6;
-    // Remote enabled
-    StatusSPS RemoteEnabled = 7;
 }
 
 // Generic user of energy - a  point of consumption on the power system model.
@@ -1068,6 +993,39 @@ message ENG_PFSignKind
     PFSignKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// Behaviour or mode (BehaviourModeKind enumeration)
+enum BehaviourModeKind
+{
+    // Undefined
+     BehaviourModeKind_UNDEFINED = 0;
+    // Normal enabled state.
+     BehaviourModeKind_on = 1;
+    // Process is passively supervised.
+     BehaviourModeKind_blocked = 2;
+    // Function is operated but results are indicated as test results.
+     BehaviourModeKind_test = 3;
+    // Function is operated in test mode, but with no impact to the process.
+     BehaviourModeKind_test_blocked = 4;
+    // Function is inactive but shows its configuration capability.
+     BehaviourModeKind_off = 5;
+}
+
+message Optional_BehaviourModeKind
+{
+    BehaviourModeKind value = 1;
+}
+
+// Behavior mode kind. ENS stands for Enumerated status
+message ENS_BehaviourModeKind
+{
+    // Quality of the value in 'stVal'.
+    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Value of the data.
+    BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // DER operational state (DERGeneratorStateKind)
 enum DERGeneratorStateKind
 {
@@ -1151,6 +1109,66 @@ message ENS_GridConnectModeKind
     string stValExtension = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// State kind
+enum HealthKind
+{
+    // MISSING DOCUMENTATION!!!
+     HealthKind_none = 0;
+    // No problems, normal operation ("green").
+     HealthKind_OK = 1;
+    // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
+    // depending on the dedicated function/device.
+     HealthKind_Warning = 2;
+    // Severe problem, no operation possible ("red").
+     HealthKind_Alarm = 3;
+}
+
+message Optional_HealthKind
+{
+    HealthKind value = 1;
+}
+
+// &lt;&gt; Enumerated status (ENS)
+message ENS_HealthKind
+{
+    // Textual description of the data. In case it is used within the CDC LPL, the description refers
+    // to the logical node.
+    google.protobuf.StringValue d = 1;
+    // Value of the data.
+    HealthKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+enum SwitchingCapabilityKind
+{
+    // MISSING DOCUMENTATION!!!
+     SwitchingCapabilityKind_none = 0;
+    // Open
+     SwitchingCapabilityKind_open = 1;
+    // Close
+     SwitchingCapabilityKind_close = 2;
+    // Open and Close
+     SwitchingCapabilityKind_open_and_close = 3;
+}
+
+message Optional_SwitchingCapabilityKind
+{
+    SwitchingCapabilityKind value = 1;
+}
+
+// <<abstract>> Enumerated status (ENS)
+message ENS_SwitchingCapabilityKind
+{
+    // If true, 'q.operatorBlocked'=true, and the process value is no longer updated.
+    google.protobuf.BoolValue blkEna = 1;
+    // Quality of the value in 'stVal'.
+    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Value of the data.
+    SwitchingCapabilityKind stVal = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    Timestamp t = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // MISSING DOCUMENTATION!!!
 message ESS
 {
@@ -1170,6 +1188,8 @@ message EventValue
 {
     // UML inherited base object
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.BoolValue modBlk = 2;
 }
 
 // The source where a forecast value is issued.
@@ -1233,7 +1253,7 @@ message StatusINS
 }
 
 // Status expressed in integer based on IEC61850 GGIO.
-message IntegerStatusGGIO
+message IntegerEventAndStatusGGIO
 {
     // UML inherited base object
     LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
@@ -1241,6 +1261,21 @@ message IntegerStatusGGIO
     StatusINS IntIn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
+}
+
+// Logical node for event and status
+message LogicalNodeForEventAndStatus
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Behavior of the function
+    ENS_BehaviourModeKind Beh = 2;
+    // Asset health
+    ENS_HealthKind EEHealth = 3;
+    // Hot line tag.
+    StatusSPS HotLineTag = 4;
+    // Remote control block.
+    StatusSPS RemoteBlk = 5;
 }
 
 // The current state for a measurement. A state value is an instance of a measurement from a
@@ -1265,6 +1300,87 @@ message OptimizationMessageInfo
 {
     // UML inherited base object
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// [OpenFMB CDC extension] Per Phase DPC.
+message PhaseDPC
+{
+    // 3 Phase control.
+    ControlDPC phs3 = 1;
+    // Phase A control.
+    ControlDPC phsA = 2;
+    // Phase B control.
+    ControlDPC phsB = 3;
+    // Phase C control.
+    ControlDPC phsC = 4;
+}
+
+// Double point position status
+enum DbPosKind
+{
+    // Transient status
+     DbPosKind_transient = 0;
+    // Closed status
+     DbPosKind_closed = 1;
+    // Open status
+     DbPosKind_open = 2;
+    // Invalid status
+     DbPosKind_invalid = 3;
+}
+
+message Optional_DbPosKind
+{
+    DbPosKind value = 1;
+}
+
+// Specialized 61850 DPS class
+message StatusDPS
+{
+    // MISSING DOCUMENTATION!!!
+    Quality q = 1;
+    // Status value of the controllable data object.
+    DbPosKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// [OpenFMB CDC extension] Per Phase DPS.
+message PhaseDPS
+{
+    // 3 Phase status.
+    StatusDPS phs3 = 1;
+    // Phase A status.
+    StatusDPS phsA = 2;
+    // Phase B status.
+    StatusDPS phsB = 3;
+    // Phase C status.
+    StatusDPS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase INS.
+message PhaseINS
+{
+    // 3 Phase control.
+    StatusINS phs3 = 1;
+    // Phase A control.
+    StatusINS phsA = 2;
+    // Phase B control.
+    StatusINS phsB = 3;
+    // Phase C control.
+    StatusINS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase ISC.
+message PhaseISC
+{
+    // 3 Phase control.
+    ControlISC phs3 = 1;
+    // Phase A control.
+    ControlISC phsA = 2;
+    // Phase B control.
+    ControlISC phsB = 3;
+    // Phase C control.
+    ControlISC phsC = 4;
 }
 
 // Specialized 61850 MMTN LN class
@@ -1307,6 +1423,64 @@ message PhaseMMTN
     ReadingMMTN phsC = 5;
     // MISSING DOCUMENTATION!!!
     ReadingMMTN phsCA = 6;
+}
+
+// Reclose action kind such as idle, cycling, or lockout.
+enum RecloseActionKind
+{
+    // Idle state
+     RecloseActionKind_idle = 0;
+    // Cycling state
+     RecloseActionKind_cycling = 1;
+    // Lockout state
+     RecloseActionKind_lockout = 2;
+}
+
+message Optional_RecloseActionKind
+{
+    RecloseActionKind value = 1;
+}
+
+// [OpenFMB CDC extension] Per Phase reclose action kind.
+message PhaseRecloseAction
+{
+    // 3 Phase control.
+    Optional_RecloseActionKind phs3 = 1;
+    // Phase A control.
+    Optional_RecloseActionKind phsA = 2;
+    // Phase B control.
+    Optional_RecloseActionKind phsB = 3;
+    // Phase C control.
+    Optional_RecloseActionKind phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase DPS.
+message PhaseSPS
+{
+    // 3 Phase status.
+    StatusSPS phs3 = 1;
+    // Phase A status.
+    StatusSPS phsA = 2;
+    // Phase B status.
+    StatusSPS phsB = 3;
+    // Phase C status.
+    StatusSPS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Phase magnitude (PMG). Phase to ground/neutral related per-phase
+// measured values.
+message PMG
+{
+    // Net current, as the algebraic sum of the instantaneous values of currents flowing through all
+    // live conductors and the neutral of a circuit at one point of the electrical installation ('phsA
+    // instCVal'+'phsB.instCVal'+'phsC.instCVal'+'neut.instCVal').
+    MV net = 1;
+    // Value of phase A.
+    MV phsA = 2;
+    // Value of phase B.
+    MV phsB = 3;
+    // Value of phase C.
+    MV phsC = 4;
 }
 
 // Grid connect mode kind
@@ -1409,35 +1583,6 @@ message ReadingMMXU
     WYE W = 11;
 }
 
-// Double point position status
-enum DbPosKind
-{
-    // Transient status
-     DbPosKind_transient = 0;
-    // Closed status
-     DbPosKind_closed = 1;
-    // Open status
-     DbPosKind_open = 2;
-    // Invalid status
-     DbPosKind_invalid = 3;
-}
-
-message Optional_DbPosKind
-{
-    DbPosKind value = 1;
-}
-
-// Specialized 61850 DPS class
-message StatusDPS
-{
-    // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Status value of the controllable data object.
-    DbPosKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
 // OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 // breaker   Name: XCBR
 message StatusAndEventXCBR
@@ -1447,7 +1592,16 @@ message StatusAndEventXCBR
     // MISSING DOCUMENTATION!!!
     ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    StatusDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    PhaseDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Fault latch: LT01=51A OR 51B OR 51C
+    PhaseSPS ProtectionPickup = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    // by a circuit segment service.
+    StatusINS ProtectionMode = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Reclose enabled
+    PhaseDPS RecloseEnabled = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Reclose mode such idle, cycling and lockout.
+    PhaseRecloseAction ReclosingAction = 7 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
@@ -1484,6 +1638,8 @@ message StatusValue
 {
     // UML inherited base object
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.BoolValue modBlk = 2;
 }
 
 // Visible string status (VSS)
@@ -1498,7 +1654,7 @@ message VSS
 }
 
 // LN: Generic process I/O   Name: GGIO
-message StringStatusGGIO
+message StringEventAndStatusGGIO
 {
     // UML inherited base object
     LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
@@ -1529,6 +1685,17 @@ message SwitchControlScheduleFSCH
 {
     // Discrete value in SwitchCSG type
     SwitchCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Visible string status (VSS)
+message VSC
+{
+    // Quality of the value in 'stVal'.
+    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // [OpenFMB Extension]  String control value.
+    string ctlVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // State kind
