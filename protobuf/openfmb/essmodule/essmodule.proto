@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package essmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/essmodule";
@@ -317,7 +317,7 @@ message EssStatusZBAT
     // UML inherited base object
     commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // Battery system status &ndash; True: on
-    commonmodule.StatusSPS BatSt = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusSPS BatSt = 2;
     // MISSING DOCUMENTATION!!!
     commonmodule.ENG_GridConnectModeKind GriMod = 3;
     // State of charge (in percentage)
@@ -424,7 +424,7 @@ message ESSControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    EssControlFSCC essControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    EssControlFSCC essControlFSCC = 3;
 }
 
 // ESS control profile

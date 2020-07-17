@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package regulatormodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/regulatormodule";
@@ -87,7 +87,7 @@ message RegulatorControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    RegulatorControlFSCC regulatorControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorControlFSCC regulatorControlFSCC = 3;
 }
 
 // Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
@@ -161,7 +161,7 @@ message RegulatorEventAndStatusANCR
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusPoint PointStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusPoint PointStatus = 3;
 }
 
 // Regulator event
@@ -170,7 +170,7 @@ message RegulatorEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2;
 }
 
 // Regulator event profile
@@ -220,7 +220,7 @@ message RegulatorStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2;
 }
 
 // Regulator status profile

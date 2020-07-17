@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package capbankmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/capbankmodule";
@@ -24,14 +24,14 @@ message CapBankEventAndStatusYPSH
 {
     // (controllable) If true, 'close' action has been blocked; can be set from another logical node. 
     // Operating capability 'ShOpCap' does not reflect the blocked closing.
-    commonmodule.StatusSPS BlkCls = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusSPS BlkCls = 1;
     // (controllable) If true, 'open' action has been blocked; can be set from another logical node.
     // Operating capability 'ShOpCap' does not reflect the blocked opening.
-    commonmodule.StatusSPS BlkOpn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusSPS BlkOpn = 2;
     // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPS Pos = 3;
     // Physical capability of the switch of the power shunt to operate.
-    commonmodule.ENS_SwitchingCapabilityKind ShOpCap = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ENS_SwitchingCapabilityKind ShOpCap = 4;
 }
 
 // Point definition (Point)
@@ -74,7 +74,7 @@ message CapBankControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    CapBankControlFSCC capBankControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CapBankControlFSCC capBankControlFSCC = 3;
 }
 
 // Cap bank control profile.  Instructs an end device (or an end device group) to perform a
@@ -109,7 +109,7 @@ message CapBankDiscreteControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    CapBankDiscreteControlZCAP capBankDiscreteControlZCAP = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CapBankDiscreteControlZCAP capBankDiscreteControlZCAP = 3;
 }
 
 // Cap bank discrete control profile.  Instructs an end device (or an end device group) to perform
@@ -142,7 +142,7 @@ message CapBankEventAndStatusZCAP
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusPoint PointStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CapBankEventAndStatusPoint PointStatus = 3;
 }
 
 // Cap bank event
@@ -151,7 +151,7 @@ message CapBankEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2;
 }
 
 // Cap bank status profile
@@ -201,7 +201,7 @@ message CapBankStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2;
 }
 
 // Cap bank status profile

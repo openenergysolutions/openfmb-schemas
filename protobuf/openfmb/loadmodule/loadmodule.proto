@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package loadmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/loadmodule";
@@ -60,7 +60,7 @@ message LoadControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    LoadControlFSCC loadControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadControlFSCC loadControlFSCC = 3;
 }
 
 // Load control profile
@@ -118,7 +118,7 @@ message LoadEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    LoadEventZGLD loadEventZGLD = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadEventZGLD loadEventZGLD = 2;
 }
 
 // Load event profile
@@ -175,7 +175,7 @@ message LoadStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    LoadStatusZGLD loadStatusZGLD = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadStatusZGLD loadStatusZGLD = 2;
 }
 
 // Load status profile

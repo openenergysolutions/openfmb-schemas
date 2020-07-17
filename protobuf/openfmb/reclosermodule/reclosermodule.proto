@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package reclosermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/reclosermodule";
@@ -31,7 +31,7 @@ message RecloserControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    RecloserControlFSCC recloserControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserControlFSCC recloserControlFSCC = 3;
 }
 
 // Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
@@ -75,7 +75,7 @@ message RecloserDiscreteControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    RecloserDiscreteControlXCBR recloserDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserDiscreteControlXCBR recloserDiscreteControlXCBR = 3;
 }
 
 // Recloser control profile.  Instructs an end device (or an end device group) to perform a
@@ -99,7 +99,7 @@ message RecloserEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Recloser event profile
@@ -151,7 +151,7 @@ message RecloserStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Recloser status profile

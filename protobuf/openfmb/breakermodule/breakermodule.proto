@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package breakermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
@@ -18,14 +18,14 @@ message BreakerDiscreteControlXCBR
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseDPC Pos = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPC Pos = 2;
     // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
     // by a circuit segment service.
-    commonmodule.ControlINC ProtectionMode = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ControlINC ProtectionMode = 3;
     // MISSING DOCUMENTATION!!!
-    commonmodule.ControlSPC RecloseEnabled = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ControlSPC RecloseEnabled = 4;
     // MISSING DOCUMENTATION!!!
-    commonmodule.ControlSPC ResetProtectionPickup = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ControlSPC ResetProtectionPickup = 5;
 }
 
 // Breaker discrete control class
@@ -36,7 +36,7 @@ message BreakerDiscreteControl
     // IEC61850 enhanced control parameters.
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3;
 }
 
 // A mechanical switching device capable of making, carrying, and breaking currents under normal
@@ -68,7 +68,7 @@ message BreakerEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Breaker event profile
@@ -120,7 +120,7 @@ message BreakerStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Breaker status profile

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package switchmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/switchmodule";
@@ -31,7 +31,7 @@ message SwitchDiscreteControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    SwitchDiscreteControlXSWI switchDiscreteControlXSWI = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SwitchDiscreteControlXSWI switchDiscreteControlXSWI = 3;
 }
 
 // A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
@@ -63,7 +63,7 @@ message SwitchEventXSWI
     // Dynamic test status
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPS Pos = 3;
 }
 
 // Switch event
@@ -72,7 +72,7 @@ message SwitchEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    SwitchEventXSWI switchEventXSWI = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SwitchEventXSWI switchEventXSWI = 2;
 }
 
 // Switch event profile
@@ -126,7 +126,7 @@ message SwitchStatusXSWI
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseDPS Pos = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.PhaseDPS Pos = 4;
     // Fault latch: LT01=51A OR 51B OR 51C
     commonmodule.PhaseSPS ProtectionPickup = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -137,7 +137,7 @@ message SwitchStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    SwitchStatusXSWI switchStatusXSWI = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SwitchStatusXSWI switchStatusXSWI = 2;
 }
 
 // Switch status profile
@@ -171,7 +171,7 @@ message SwitchControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    SwitchControlFSCC SwitchControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SwitchControlFSCC SwitchControlFSCC = 3;
 }
 
 // Switch control profile

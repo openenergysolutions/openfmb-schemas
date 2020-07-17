@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package generationmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/generationmodule";
@@ -75,7 +75,7 @@ message GenerationControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    GenerationControlFSCC generationControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    GenerationControlFSCC generationControlFSCC = 3;
 }
 
 // A single or set of synchronous machines for converting mechanical power into alternating-current
@@ -124,6 +124,39 @@ message Optional_RealPowerControlKind
     RealPowerControlKind value = 1;
 }
 
+// Generation discrete control
+message DroopParameter
+{
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue slope = 1;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue unloadedOffset = 2;
+}
+
+// Generation discrete control
+message VV11PlaceHolder
+{
+    // MISSING DOCUMENTATION!!!
+    float point = 1;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue unloadedOffset = 3;
+}
+
+// Generation real power control
+message RealPowerControl
+{
+    // MISSING DOCUMENTATION!!!
+    VV11PlaceHolder advancedSetpoint = 1;
+    // MISSING DOCUMENTATION!!!
+    DroopParameter droopSetpoint = 2;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue isochronousSetpoint = 3;
+    // MISSING DOCUMENTATION!!!
+    Optional_RealPowerControlKind realPowerControlMode = 4;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue realPowerSetpoint = 5;
+}
+
 // Real power control kind
 enum ReactivePowerControlKind
 {
@@ -132,16 +165,35 @@ enum ReactivePowerControlKind
     // MISSING DOCUMENTATION!!!
      ReactivePowerControlKind_advanced = 1;
     // MISSING DOCUMENTATION!!!
-     ReactivePowerControlKind_powerFactor = 2;
-    // Reactive power setpoint
-     ReactivePowerControlKind_reactivePower = 3;
+     ReactivePowerControlKind_droop = 2;
     // Voltage setpoint
-     ReactivePowerControlKind_voltage = 4;
+     ReactivePowerControlKind_voltage = 3;
+    // Reactive power setpoint
+     ReactivePowerControlKind_reactivePower = 4;
+    // MISSING DOCUMENTATION!!!
+     ReactivePowerControlKind_powerFactor = 5;
 }
 
 message Optional_ReactivePowerControlKind
 {
     ReactivePowerControlKind value = 1;
+}
+
+// Generation real power control
+message ReactivePowerControl
+{
+    // MISSING DOCUMENTATION!!!
+    VV11PlaceHolder advancedSetpoint = 1;
+    // MISSING DOCUMENTATION!!!
+    DroopParameter droopSetpoint = 2;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue powerFactorSetpoint = 3;
+    // MISSING DOCUMENTATION!!!
+    Optional_ReactivePowerControlKind reactivePowerControlMode = 4;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue reactivePowerSetpoint = 5;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue voltageSetpoint = 6;
 }
 
 // Generation discrete control
@@ -152,9 +204,9 @@ message GenerationDiscreteControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    Optional_ReactivePowerControlKind reactivePowerControlMode = 3;
+    ReactivePowerControl ReactivePowerControl = 3;
     // MISSING DOCUMENTATION!!!
-    Optional_RealPowerControlKind realPowerControlMode = 4;
+    RealPowerControl RealPowerControl = 4;
 }
 
 // Generation discrete control profile
@@ -255,7 +307,7 @@ message GenerationEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    GenerationEventZGEN generationEventZGEN = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    GenerationEventZGEN generationEventZGEN = 2;
 }
 
 // Generation event profile
@@ -285,7 +337,7 @@ message GenerationStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    GenerationStatusZGEN generationStatusZGEN = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    GenerationStatusZGEN generationStatusZGEN = 2;
 }
 
 // Generation status profile

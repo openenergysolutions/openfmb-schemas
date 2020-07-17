@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, July 14, 2020 1:30:58 AM UTC
+// Thursday, July 16, 2020 8:51:03 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
@@ -246,6 +246,15 @@ message AnalogueValue
     google.protobuf.Int32Value i = 2;
 }
 
+// Unit definition (Unit)
+message Unit
+{
+    // (default='') Unit multiplier.
+    Optional_UnitMultiplierKind multiplier = 1;
+    // SI unit of measure.
+    UnitSymbolKind SIUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Validity of the value, as condensed information for the client. In case this value is not
 // 'good', some reasons may be found in the 'detailQual'.
 enum ValidityKind
@@ -427,15 +436,6 @@ message Timestamp
     uint32 nanoseconds = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Unit definition (Unit)
-message Unit
-{
-    // (default='') Unit multiplier.
-    Optional_UnitMultiplierKind multiplier = 1;
-    // SI unit of measure.
-    UnitSymbolKind SIUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
 // Measured value (MV)
 message MV
 {
@@ -514,15 +514,14 @@ message ASG
 // Binary counter reading (BCR)
 message BCR
 {
+    reserved 4;
     // Binary counter status represented as an integer value; wraps to 0 at the maximum or minimum
     // value of INT64.
     int64 actVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'actVal', 'frVal'.
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 2;
     // Timestamp of the last change of value in 'actVal' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Unit for value in 'pulsQty'.
-    Optional_UnitSymbolKind units = 4;
+    Timestamp t = 3;
 }
 
 // Specialized 61850 SPS class
@@ -571,6 +570,7 @@ message Vector
 // Complex measured value (CMV)
 message CMV
 {
+    reserved 4;
     // Complex value based on a deadband calculation from the instantaneous value 'instCVal.mag'. The
     // deadband calculation is done both on 'instCVal.mag' (based on 'db') and on 'instCVal.ang' (based on
     // 'dbAng'), independently. See  'MV.mag'.
@@ -580,8 +580,6 @@ message CMV
     // Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     // of 'range', 'rangeAng' or 'q'.
     Timestamp t = 3;
-    // Units for: 'instCVal.mag', 'cVal.mag', 'subCVal.mag', 'rangeC'.
-    Unit units = 4;
 }
 
 // Asset representation of a ConductingEquipment.
@@ -615,13 +613,7 @@ message ConductingEquipmentTerminalReading
 message ControlAPC
 {
     // Service parameter that determines the control activity.
-    AnalogueValueCtl ctlVal = 1;
-    // Quality of the value in 'mxVal'.
-    Quality q = 2;
-    // Timestamp of the last change of the value in any of 'mxVal' or 'q'.
-    Timestamp t = 3;
-    // Units for: 'mxVal', 'subVal', 'minVal', 'maxVal', 'stepSize', 'ctlVal'.
-    Unit units = 4;
+    AnalogueValueCtl ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized DPC 61850 CDC class
@@ -799,13 +791,7 @@ message ControlFSCC
 message ControlINC
 {
     // Service parameter that determines the control activity.
-    google.protobuf.Int32Value ctlVal = 1;
-    // Quality of the value in 'stVal'.
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change or update event of ‘stVal’, or the last change of value in ‘q’.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Units for: 'stVal', 'subVal', 'minVal', 'maxVal', 'stepSize','ctlVal'.
-    Unit units = 4;
+    int32 ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Integer status setting (FC=SP) (ING_SP)
@@ -846,12 +832,6 @@ message ControlSPC
     // Service parameter that determines the control activity ('false' for off or deactivation, 'true'
     // for on or activation).
     bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Quality of ctlVal
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the ctlVal
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Unit of ctlVal
-    Unit units = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // The value of a control command which could either be a setpoint or a control schedule in curve. 
@@ -1019,11 +999,11 @@ message Optional_BehaviourModeKind
 message ENS_BehaviourModeKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 1;
     // Value of the data.
     BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
 }
 
 // DER operational state (DERGeneratorStateKind)
@@ -1093,11 +1073,11 @@ message Optional_DynamicTestKind
 message ENS_DynamicTestKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 1;
     // Value of the data.
     DynamicTestKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
 }
 
 // Grid connect event &amp; status mode kind
@@ -1161,12 +1141,8 @@ message ENS_SwitchingCapabilityKind
 {
     // If true, 'q.operatorBlocked'=true, and the process value is no longer updated.
     google.protobuf.BoolValue blkEna = 1;
-    // Quality of the value in 'stVal'.
-    Quality q = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Value of the data.
-    SwitchingCapabilityKind stVal = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SwitchingCapabilityKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -1248,8 +1224,6 @@ message StatusINS
     int32 stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     Timestamp t = 3;
-    // Units for: 'stVal', 'subVal'.
-    Unit units = 4;
 }
 
 // Status expressed in integer based on IEC61850 GGIO.
@@ -1341,7 +1315,7 @@ message StatusDPS
     // Status value of the controllable data object.
     DbPosKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
 }
 
 // [OpenFMB CDC extension] Per Phase DPS.
@@ -1592,16 +1566,16 @@ message StatusAndEventXCBR
     // MISSING DOCUMENTATION!!!
     ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    PhaseDPS Pos = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    PhaseDPS Pos = 3;
     // Fault latch: LT01=51A OR 51B OR 51C
-    PhaseSPS ProtectionPickup = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    PhaseSPS ProtectionPickup = 4;
     // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
     // by a circuit segment service.
-    StatusINS ProtectionMode = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    StatusINS ProtectionMode = 5;
     // Reclose enabled
-    PhaseDPS RecloseEnabled = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    PhaseDPS RecloseEnabled = 6;
     // Reclose mode such idle, cycling and lockout.
-    PhaseRecloseAction ReclosingAction = 7 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    PhaseRecloseAction ReclosingAction = 7;
 }
 
 // &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
@@ -1690,12 +1664,8 @@ message SwitchControlScheduleFSCH
 // Visible string status (VSS)
 message VSC
 {
-    // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // [OpenFMB Extension]  String control value.
-    string ctlVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // State kind
