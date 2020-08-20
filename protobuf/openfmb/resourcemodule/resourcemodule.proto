@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Thursday, July 16, 2020 8:51:03 PM UTC
+// Wednesday, August 19, 2020 9:08:37 PM UTC
 
 package resourcemodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/resourcemodule";

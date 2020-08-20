@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Thursday, July 16, 2020 8:51:03 PM UTC
+// Wednesday, August 19, 2020 9:08:37 PM UTC
 
 // [From Jed]: <font color="#2e75b5"><b>ReserveAvailability</b></font> Published to all neighbors
 // (hierarchical or peers)  <font color="#5b9bd5"><b>Usage:</b></font> <ul>  <li>Specific to each point

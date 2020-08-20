@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Thursday, July 16, 2020 8:51:03 PM UTC
+// Wednesday, August 19, 2020 9:08:37 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
@@ -11,6 +11,67 @@ option csharp_namespace = "openfmb.commonmodule";
 
 import "uml.proto";
 import "google/protobuf/wrappers.proto";
+
+// Reclose action kind such as idle, cycling, or lockout.
+enum FaultDirectionKind
+{
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_unknown = 0;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_forward = 1;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_backward = 2;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_both = 3;
+}
+
+message Optional_FaultDirectionKind
+{
+    FaultDirectionKind value = 1;
+}
+
+// Reclose action kind such as idle, cycling, or lockout.
+enum PhaseFaultDirectionKind
+{
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_unknown = 0;
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_forward = 1;
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_backward = 2;
+}
+
+message Optional_PhaseFaultDirectionKind
+{
+    PhaseFaultDirectionKind value = 1;
+}
+
+// Directional protection indication information (ACD)
+message ACD
+{
+    // General direction of the fault. If the faults of individual phases have different directions,
+    // this attribute shall be set to 'dirGeneral'='both'.
+    FaultDirectionKind dirGeneral = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Direction of the fault for earth current.
+    Optional_PhaseFaultDirectionKind dirNeut = 2;
+    // Direction of the fault for phase A.
+    Optional_PhaseFaultDirectionKind dirPhsA = 3;
+    // Direction of the fault for phase B.
+    Optional_PhaseFaultDirectionKind dirPhsB = 4;
+    // Direction of the fault for phase C.
+    Optional_PhaseFaultDirectionKind dirPhsC = 5;
+    // General indication of a protection activation (e.g. by the fault). Depending on the function,
+    // 'general' may or may not be resulting from the phase attributes (phsA', 'phsB', 'phsC', 'neut').
+    bool general = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // See 'ACT.neut'.
+    google.protobuf.BoolValue neut = 7;
+    // Value true indicates a trip or a start event of phase A.
+    google.protobuf.BoolValue phsA = 8;
+    // Value true indicates a trip or a start event of phase B.
+    google.protobuf.BoolValue phsB = 9;
+    // Value true indicates a trip or a start event of phase C.
+    google.protobuf.BoolValue phsC = 10;
+}
 
 // This is a root class to provide common identification for all classes needing identification and
 // naming attributes.
@@ -1276,6 +1337,19 @@ message OptimizationMessageInfo
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
+// [OpenFMB CDC extension] Per Phase ISC.
+message PhaseAPC
+{
+    // 3 Phase control.
+    ControlAPC phs3 = 1;
+    // Phase A control.
+    ControlAPC phsA = 2;
+    // Phase B control.
+    ControlAPC phsB = 3;
+    // Phase C control.
+    ControlAPC phsC = 4;
+}
+
 // [OpenFMB CDC extension] Per Phase DPC.
 message PhaseDPC
 {
@@ -1568,14 +1642,25 @@ message StatusAndEventXCBR
     // MISSING DOCUMENTATION!!!
     PhaseDPS Pos = 3;
     // Fault latch: LT01=51A OR 51B OR 51C
-    PhaseSPS ProtectionPickup = 4;
+    ACD ProtectionPickup = 4;
     // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
     // by a circuit segment service.
     StatusINS ProtectionMode = 5;
     // Reclose enabled
-    PhaseDPS RecloseEnabled = 6;
+    PhaseSPS RecloseEnabled = 6;
     // Reclose mode such idle, cycling and lockout.
     PhaseRecloseAction ReclosingAction = 7;
+}
+
+// Integer control status
+message StatusINC
+{
+    // Quality of the value in 'stVal'.
+    Quality q = 1;
+    // Value of the data.
+    int32 stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    Timestamp t = 3;
 }
 
 // &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
@@ -1652,13 +1737,6 @@ message SwitchCSG
 {
     // The array with the points specifying a curve shape.
     repeated SwitchPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-message SwitchControlScheduleFSCH
-{
-    // Discrete value in SwitchCSG type
-    SwitchCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Visible string status (VSS)

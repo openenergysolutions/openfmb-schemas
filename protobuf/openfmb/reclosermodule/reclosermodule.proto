@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Thursday, July 16, 2020 8:51:03 PM UTC
+// Wednesday, August 19, 2020 9:08:37 PM UTC
 
 package reclosermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/reclosermodule";
@@ -13,51 +13,6 @@ import "uml.proto";
 import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 import "breakermodule/breakermodule.proto";
-
-// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-message RecloserControlFSCC
-{
-    // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.SwitchControlScheduleFSCH switchControlScheduleFSCH = 2;
-}
-
-// Recloser discrete control
-message RecloserControl
-{
-    // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.CheckConditions check = 2;
-    // MISSING DOCUMENTATION!!!
-    RecloserControlFSCC recloserControlFSCC = 3;
-}
-
-// Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
-// and supplemental controls.
-message Recloser
-{
-    // UML inherited base object
-    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    google.protobuf.BoolValue normalOpen = 2;
-}
-
-// Recloser control profile.  Instructs an end device (or an end device group) to perform a
-// specified action.
-message RecloserControlProfile
-{
-    option (uml.option_openfmb_profile) = true;
-    // UML inherited base object
-    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserControl recloserControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
 
 // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
 // by a circuit segment service.
@@ -76,6 +31,16 @@ message RecloserDiscreteControl
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
     RecloserDiscreteControlXCBR recloserDiscreteControlXCBR = 3;
+}
+
+// Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
+// and supplemental controls.
+message Recloser
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.BoolValue normalOpen = 2;
 }
 
 // Recloser control profile.  Instructs an end device (or an end device group) to perform a

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Thursday, July 16, 2020 8:51:03 PM UTC
+// Wednesday, August 19, 2020 9:08:37 PM UTC
 
 package capbankmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/capbankmodule";
@@ -20,25 +20,23 @@ message CapBankSystem
 }
 
 // LN: Power cap bank  Name: YPSH
-message CapBankEventAndStatusYPSH
+message CapBankControlYPSH
 {
     // (controllable) If true, 'close' action has been blocked; can be set from another logical node. 
     // Operating capability 'ShOpCap' does not reflect the blocked closing.
-    commonmodule.StatusSPS BlkCls = 1;
+    commonmodule.ControlSPC BlkCls = 1;
     // (controllable) If true, 'open' action has been blocked; can be set from another logical node.
     // Operating capability 'ShOpCap' does not reflect the blocked opening.
-    commonmodule.StatusSPS BlkOpn = 2;
+    commonmodule.ControlSPC BlkOpn = 2;
     // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPS Pos = 3;
-    // Physical capability of the switch of the power shunt to operate.
-    commonmodule.ENS_SwitchingCapabilityKind ShOpCap = 4;
+    commonmodule.PhaseDPC Pos = 3;
 }
 
 // Point definition (Point)
 message CapBankPoint
 {
     // Regulator control
-    CapBankEventAndStatusYPSH control = 1;
+    CapBankControlYPSH control = 1;
     // Start time
     commonmodule.Timestamp startTime = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -125,6 +123,19 @@ message CapBankDiscreteControlProfile
     CapBankSystem capBankSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// LN: Power cap bank  Name: YPSH
+message CapBankEventAndStatusYPSH
+{
+    // (controllable) If true, 'close' action has been blocked; can be set from another logical node. 
+    // Operating capability 'ShOpCap' does not reflect the blocked closing.
+    commonmodule.StatusSPS BlkCls = 1;
+    // (controllable) If true, 'open' action has been blocked; can be set from another logical node.
+    // Operating capability 'ShOpCap' does not reflect the blocked opening.
+    commonmodule.StatusSPS BlkOpn = 2;
+    // (controllable) Position of the switch of power shunt.
+    commonmodule.PhaseDPS Pos = 3;
 }
 
 // Point definition (Point)
