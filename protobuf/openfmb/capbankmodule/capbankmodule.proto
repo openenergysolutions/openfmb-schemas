@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Wednesday, August 19, 2020 9:08:37 PM UTC
+// Tuesday, August 25, 2020 1:48:59 AM UTC
 
 package capbankmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/capbankmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/capbankmodule";
 option java_package = "openfmb.capbankmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.capbankmodule";
@@ -22,14 +22,8 @@ message CapBankSystem
 // LN: Power cap bank  Name: YPSH
 message CapBankControlYPSH
 {
-    // (controllable) If true, 'close' action has been blocked; can be set from another logical node. 
-    // Operating capability 'ShOpCap' does not reflect the blocked closing.
-    commonmodule.ControlSPC BlkCls = 1;
-    // (controllable) If true, 'open' action has been blocked; can be set from another logical node.
-    // Operating capability 'ShOpCap' does not reflect the blocked opening.
-    commonmodule.ControlSPC BlkOpn = 2;
     // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPC Pos = 3;
+    commonmodule.PhaseDPC Pos = 1;
 }
 
 // Point definition (Point)
@@ -91,7 +85,7 @@ message CapBankControlProfile
 }
 
 // OpenFMB specialization for cap bank discrete control:
-message CapBankDiscreteControlZCAP
+message CapBankDiscreteControlYPSH
 {
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
@@ -107,7 +101,7 @@ message CapBankDiscreteControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    CapBankDiscreteControlZCAP capBankDiscreteControlZCAP = 3;
+    CapBankDiscreteControlYPSH capBankDiscreteControlYPSH = 3;
 }
 
 // Cap bank discrete control profile.  Instructs an end device (or an end device group) to perform
@@ -128,32 +122,12 @@ message CapBankDiscreteControlProfile
 // LN: Power cap bank  Name: YPSH
 message CapBankEventAndStatusYPSH
 {
-    // (controllable) If true, 'close' action has been blocked; can be set from another logical node. 
-    // Operating capability 'ShOpCap' does not reflect the blocked closing.
-    commonmodule.StatusSPS BlkCls = 1;
-    // (controllable) If true, 'open' action has been blocked; can be set from another logical node.
-    // Operating capability 'ShOpCap' does not reflect the blocked opening.
-    commonmodule.StatusSPS BlkOpn = 2;
-    // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPS Pos = 3;
-}
-
-// Point definition (Point)
-message CapBankEventAndStatusPoint
-{
-    // Regulator control
-    CapBankEventAndStatusYPSH eventAndStatus = 1;
-}
-
-// OpenFMB 61850 specialization for both CapBankEventProfile and CapBankStatusProfile
-message CapBankEventAndStatusZCAP
-{
     // UML inherited base object
     commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
-    // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusPoint PointStatus = 3;
+    // (controllable) Position of the switch of power shunt.
+    commonmodule.PhaseDPS Pos = 3;
 }
 
 // Cap bank event
@@ -162,7 +136,7 @@ message CapBankEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2;
+    CapBankEventAndStatusYPSH CapBankEventAndStatusYPSH = 2;
 }
 
 // Cap bank status profile
@@ -212,7 +186,7 @@ message CapBankStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CapBankEventAndStatusZCAP capBankEventAndStatusZCAP = 2;
+    CapBankEventAndStatusYPSH capBankEventAndStatusYPSH = 2;
 }
 
 // Cap bank status profile

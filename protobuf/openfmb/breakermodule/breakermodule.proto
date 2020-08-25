@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Wednesday, August 19, 2020 9:08:37 PM UTC
+// Tuesday, August 25, 2020 1:48:59 AM UTC
 
 package breakermodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/breakermodule";
 option java_package = "openfmb.breakermodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.breakermodule";
@@ -16,16 +16,7 @@ import "commonmodule/commonmodule.proto";
 message BreakerDiscreteControlXCBR
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseDPC Pos = 2;
-    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
-    // by a circuit segment service.
-    commonmodule.ControlINC ProtectionMode = 3;
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ControlSPC RecloseEnabled = 4;
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ControlSPC ResetProtectionPickup = 5;
+    commonmodule.DiscreteControlXCBR discreteControlXCBR = 1 [(uml.option_parent_message) = true];
 }
 
 // Breaker discrete control class

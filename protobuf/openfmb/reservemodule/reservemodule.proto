@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Wednesday, August 19, 2020 9:08:37 PM UTC
+// Tuesday, August 25, 2020 1:48:59 AM UTC
 
 // [From Jed]: <font color="#2e75b5"><b>ReserveAvailability</b></font> Published to all neighbors
 // (hierarchical or peers)  <font color="#5b9bd5"><b>Usage:</b></font> <ul>  <li>Specific to each point
@@ -53,7 +53,7 @@ syntax = "proto3";
 // <ul>  <li><ul>  <li></li> </ul> </li> </ul> <ul>  <li><b>Early Lease Cancelation</b><ul>  <li>Lease
 // ID</li> </ul> </li> </ul> <ul>  <li><ul>  <li></li> </ul> </li> </ul>
 package reservemodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/reservemodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/reservemodule";
 option java_package = "openfmb.reservemodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.reservemodule";

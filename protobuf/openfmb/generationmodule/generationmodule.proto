@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Wednesday, August 19, 2020 9:08:37 PM UTC
+// Tuesday, August 25, 2020 1:48:59 AM UTC
 
 package generationmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/generationmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/generationmodule";
 option java_package = "openfmb.generationmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.generationmodule";

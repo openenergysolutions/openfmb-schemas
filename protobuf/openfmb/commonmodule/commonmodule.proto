@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Wednesday, August 19, 2020 9:08:37 PM UTC
+// Tuesday, August 25, 2020 1:48:59 AM UTC
 
 package commonmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
 option java_package = "openfmb.commonmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.commonmodule";
@@ -931,6 +931,35 @@ message DEL
     CMV phsCA = 3;
 }
 
+// [OpenFMB CDC extension] Per Phase DPC.
+message PhaseDPC
+{
+    // 3 Phase control.
+    ControlDPC phs3 = 1;
+    // Phase A control.
+    ControlDPC phsA = 2;
+    // Phase B control.
+    ControlDPC phsB = 3;
+    // Phase C control.
+    ControlDPC phsC = 4;
+}
+
+// Reclose enabled
+message DiscreteControlXCBR
+{
+    // UML inherited base object
+    LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    PhaseDPC Pos = 2;
+    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    // by a circuit segment service.
+    ControlINC ProtectionMode = 3;
+    // MISSING DOCUMENTATION!!!
+    ControlSPC RecloseEnabled = 4;
+    // MISSING DOCUMENTATION!!!
+    ControlSPC ResetProtectionPickup = 5;
+}
+
 // Generic user of energy - a  point of consumption on the power system model.
 message EnergyConsumer
 {
@@ -1348,19 +1377,6 @@ message PhaseAPC
     ControlAPC phsB = 3;
     // Phase C control.
     ControlAPC phsC = 4;
-}
-
-// [OpenFMB CDC extension] Per Phase DPC.
-message PhaseDPC
-{
-    // 3 Phase control.
-    ControlDPC phs3 = 1;
-    // Phase A control.
-    ControlDPC phsA = 2;
-    // Phase B control.
-    ControlDPC phsB = 3;
-    // Phase C control.
-    ControlDPC phsC = 4;
 }
 
 // Double point position status
