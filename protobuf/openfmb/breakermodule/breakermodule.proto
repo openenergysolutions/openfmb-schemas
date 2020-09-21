@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package breakermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/breakermodule";
@@ -49,8 +49,6 @@ message BreakerDiscreteControlProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerDiscreteControl breakerDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Breaker event class
@@ -72,8 +70,6 @@ message BreakerEventProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerEvent breakerEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -101,8 +97,6 @@ message BreakerReadingProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     repeated BreakerReading breakerReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Status of a breaker
@@ -124,7 +118,5 @@ message BreakerStatusProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerStatus breakerStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

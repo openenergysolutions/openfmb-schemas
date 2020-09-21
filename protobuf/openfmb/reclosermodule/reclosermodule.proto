@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package reclosermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/reclosermodule";
@@ -50,11 +50,9 @@ message RecloserDiscreteControlProfile
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserDiscreteControl recloserDiscreteControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserDiscreteControl recloserDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Recloser event
@@ -73,11 +71,9 @@ message RecloserEventProfile
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserEvent recloserEvent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserEvent recloserEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Recloser reading value
@@ -102,11 +98,9 @@ message RecloserReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    repeated RecloserReading recloserReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
+    repeated RecloserReading recloserReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
 }
 
 // Recloser status
@@ -125,10 +119,8 @@ message RecloserStatusProfile
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserStatus recloserStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserStatus recloserStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package loadmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";
@@ -72,9 +72,7 @@ message LoadControlProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadControl loadControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadControl loadControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
@@ -130,9 +128,7 @@ message LoadEventProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadEvent loadEvent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadEvent loadEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Load reading value
@@ -157,9 +153,7 @@ message LoadReadingProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadReading loadReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadReading loadReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZGLD LN class
@@ -187,8 +181,6 @@ message LoadStatusProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadStatus loadStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadStatus loadStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

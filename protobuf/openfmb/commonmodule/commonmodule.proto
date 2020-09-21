@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -1133,11 +1133,11 @@ message Optional_DERGeneratorStateKind
 message ENS_DERGeneratorStateKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 1;
     // Value of the data.
     DERGeneratorStateKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
 }
 
 // Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
@@ -1286,20 +1286,6 @@ message ForecastIED
 
 // Forecast value
 message ForecastValue
-{
-    // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
-}
-
-// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
-// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
-// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
-// defined in IEC61850-7-2 (but only in SCL: IEC61850-6). However, it is an important concept that
-// deserves its place in the meta-model. When the meta-model gets instantiated from a direct link to an
-// IED with an IEC61850 SERVER, we typically create an instance of the meta-model IED per connection.
-// When the meta-model gets instantiated from an SCL file, there is the full description of IED and its
-// functions.
-message IED
 {
     // UML inherited base object
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
@@ -1721,11 +1707,11 @@ message StatusValue
 message VSS
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Quality q = 1;
     // Value of the data.
     string stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Timestamp t = 3;
 }
 
 // LN: Generic process I/O   Name: GGIO

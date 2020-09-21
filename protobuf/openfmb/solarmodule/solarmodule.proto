@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package solarmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/solarmodule";
@@ -88,11 +88,9 @@ message SolarControlProfile
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarControl solarControl = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    SolarControl solarControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    SolarInverter solarInverter = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarInverter solarInverter = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
@@ -158,11 +156,9 @@ message SolarEventProfile
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarEvent solarEvent = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    SolarEvent solarEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    SolarInverter solarInverter = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarInverter solarInverter = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Solar reading value
@@ -185,11 +181,9 @@ message SolarReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarInverter solarInverter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    SolarInverter solarInverter = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    SolarReading solarReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarReading solarReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZGEN LN class
@@ -217,10 +211,8 @@ message SolarStatusProfile
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarInverter solarInverter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    SolarInverter solarInverter = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    SolarStatus solarStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    SolarStatus solarStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

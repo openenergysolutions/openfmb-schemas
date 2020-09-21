@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package generationmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/generationmodule";
@@ -100,8 +100,6 @@ message GenerationControlProfile
     GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     GenerationControl generationControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Real power control kind
@@ -206,8 +204,6 @@ message GenerationDiscreteControlProfile
     GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     GenerationDiscreteControl generationDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Generation reading value
@@ -233,8 +229,6 @@ message GenerationReadingProfile
     GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     GenerationReading generationReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
@@ -307,8 +301,6 @@ message GenerationEventProfile
     GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     GenerationEvent generationEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZGEN class
@@ -337,7 +329,5 @@ message GenerationStatusProfile
     GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     GenerationStatus generationStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

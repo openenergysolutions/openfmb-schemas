@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package metermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/metermodule";
@@ -32,10 +32,8 @@ message MeterReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.Meter meter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.Meter meter = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    MeterReading meterReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    MeterReading meterReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

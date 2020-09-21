@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (Duke working).eap
-// Tuesday, August 25, 2020 1:48:59 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Thursday, September 17, 2020 3:39:33 PM UTC
 
 package resourcemodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/resourcemodule";
@@ -84,9 +84,7 @@ message ResourceDiscreteControlProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    ResourceDiscreteControl resourceDiscreteControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ResourceDiscreteControl resourceDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Resource reading value
@@ -112,9 +110,7 @@ message ResourceReadingProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    ResourceReading resourceReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ResourceReading resourceReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Current event information relevant to an entity.
@@ -141,9 +137,7 @@ message ResourceEventProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    ResourceEvent resourceEvent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ResourceEvent resourceEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Current status information relevant to an entity.
@@ -170,8 +164,6 @@ message ResourceStatusProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    ResourceStatus resourceStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ResourceStatus resourceStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
