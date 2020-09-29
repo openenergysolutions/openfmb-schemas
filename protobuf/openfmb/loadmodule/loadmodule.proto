@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Thursday, September 17, 2020 3:39:33 PM UTC
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package loadmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";
@@ -10,6 +10,7 @@ option java_multiple_files = true;
 option csharp_namespace = "openfmb.loadmodule";
 
 import "uml.proto";
+import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
 // Point definition (Point)
@@ -168,8 +169,10 @@ message LoadStatus
 {
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // True if the load is uncontrollable.
+    google.protobuf.BoolValue isUncontrollable = 2;
     // MISSING DOCUMENTATION!!!
-    LoadStatusZGLD loadStatusZGLD = 2;
+    LoadStatusZGLD loadStatusZGLD = 3;
 }
 
 // Load status profile

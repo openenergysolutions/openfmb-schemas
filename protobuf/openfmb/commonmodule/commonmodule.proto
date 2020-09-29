@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Thursday, September 17, 2020 3:39:33 PM UTC
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -295,18 +295,6 @@ message Optional_PhaseCodeKind
     PhaseCodeKind value = 1;
 }
 
-// Analogue value (AnalogueValue)
-message AnalogueValue
-{
-    // Floating point representation of the measured value. The formula to convert between 'f' and the
-    // process value (pVal) shall be: <i>pVal</i>='f'*10exp('Unit.multiplier') in ['Unit.SIUnit'].
-    google.protobuf.FloatValue f = 1;
-    // Integer representation of the measured value. The formula to convert between 'i' and the process
-    // value (pVal) shall be: <i>pVal</i>=(('i'*'ScaledValueConfig.scaleFactor')+'ScaledValueConfig.offset'
-    //  in ['Unit.SIUnit'].
-    google.protobuf.Int32Value i = 2;
-}
-
 // Unit definition (Unit)
 message Unit
 {
@@ -506,7 +494,7 @@ message MV
     // is typically used to create reports for analogue values. Such a report sent "by exception" is not
     // comparable to the transfer of sampled measured values as supported by the CDC SAV.NOTE 2 This 'mag'
     // is not the same as 'mag' of the constructed attribute class 'Vector'.
-    AnalogueValue mag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    double mag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'instMag', 'mag', 'range'.
     Quality q = 2;
     // Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
@@ -534,15 +522,6 @@ message AnalogEventAndStatusGGIO
     Optional_PhaseCodeKind Phase = 3;
 }
 
-// Analogue value control (AnalogueValueCtl)
-message AnalogueValueCtl
-{
-    // Floating point representation of the measured value.  See 'AnalogueValue.f'.
-    google.protobuf.FloatValue f = 1;
-    // Integer representation of the measured value. See 'AnalogueValue.i'.
-    google.protobuf.Int32Value i = 2;
-}
-
 // This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
 // the two classes is because the mRID may need to be defined as a separate key field for technology
 // such as the DDS implementation.
@@ -567,7 +546,7 @@ message ApplicationSystem
 message ASG
 {
     // The value of the analogue setting.
-    AnalogueValueCtl setMag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    double setMag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
     Unit units = 2;
 }
@@ -623,9 +602,9 @@ message Vector
 {
     // (range=[-180...180]) Angle of the complex value (Unit.SIUnit='deg' and Unit.multiplier='');
     // angle reference is defined in the context where this type is used.
-    AnalogueValue ang = 1;
+    google.protobuf.DoubleValue ang = 1;
     // Magnitude of the complex value.
-    AnalogueValue mag = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    double mag = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Complex measured value (CMV)
@@ -674,7 +653,7 @@ message ConductingEquipmentTerminalReading
 message ControlAPC
 {
     // Service parameter that determines the control activity.
-    AnalogueValueCtl ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    double ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized DPC 61850 CDC class
@@ -803,7 +782,7 @@ message ENG_ScheduleParameter
     // Schedule parameter type
     ScheduleParameterKind scheduleParameterType = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    float value = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    double value = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
