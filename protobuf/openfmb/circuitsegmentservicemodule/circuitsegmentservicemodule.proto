@@ -1,76 +1,78 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Monday, December 14, 2020 7:23:13 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
+// Tuesday, December 7, 2021 5:56:45 PM UTC
 
-package coordinationservicemodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/coordinationservicemodule";
-option java_package = "openfmb.coordinationservicemodule";
+// This module is an early alpha release and subject to change. It is NOT part of the gateway test
+// procedure for OpenFMB certification.
+package circuitsegmentservicemodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/circuitsegmentservicemodule";
+option java_package = "openfmb.circuitsegmentservicemodule";
 option java_multiple_files = true;
-option csharp_namespace = "openfmb.coordinationservicemodule";
+option csharp_namespace = "openfmb.circuitsegmentservicemodule";
 
 import "uml.proto";
 import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
 // State kind
-enum CoordinationServiceModeKind
+enum CircuitSegmentServiceModeKind
 {
     // Undefined
-     CoordinationServiceModeKind_UNDEFINED = 0;
+     CircuitSegmentServiceModeKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_none = 1;
+     CircuitSegmentServiceModeKind_none = 1;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_auto = 2;
+     CircuitSegmentServiceModeKind_auto = 2;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_manual = 3;
+     CircuitSegmentServiceModeKind_manual = 3;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_netzero = 4;
+     CircuitSegmentServiceModeKind_netzero = 4;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_start = 5;
+     CircuitSegmentServiceModeKind_start = 5;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_stop = 6;
+     CircuitSegmentServiceModeKind_stop = 6;
 }
 
-message Optional_CoordinationServiceModeKind
+message Optional_CircuitSegmentServiceModeKind
 {
-    CoordinationServiceModeKind value = 1;
+    CircuitSegmentServiceModeKind value = 1;
 }
 
-// Coordination service mode kind
-message ENG_CoordinationServiceModeKind
+// Circuit Segment service mode kind
+message ENG_CircuitSegmentServiceModeKind
 {
     // The value of the coordination service mode.
-    CoordinationServiceModeKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentServiceModeKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     google.protobuf.StringValue setValExtension = 2;
 }
 
-// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
-// Control), following 61850 naming convention.
-message CoordinationControlDCSC
+// OpenFMB specialization for circuit segment service control, DCSC (Distributed Coordination
+// Service Control), following 61850 naming convention.
+message CircuitSegmentControlDCSC
 {
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
+    ENG_CircuitSegmentServiceModeKind CircuitSegmentServiceMode = 2;
     // MISSING DOCUMENTATION!!!
     commonmodule.ControlDPC Island = 3;
 }
 
 // Switch discrete control
-message CoordinationControl
+message CircuitSegmentControl
 {
     // UML inherited base object
     commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    CoordinationControlDCSC coordinationControlDCSC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentControlDCSC circuitSegmentControlDCSC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch control profile
-message CoordinationControlProfile
+message CircuitSegmentControlProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
@@ -78,17 +80,17 @@ message CoordinationControlProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    CoordinationControl coordinationControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentControl circuitSegmentControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
-// Control), following 61850 naming convention.
-message CoordinationEventDCSC
+// OpenFMB specialization for circuit segment service control, DCSC (Distributed Coordination
+// Service Control), following 61850 naming convention.
+message CircuitSegmentEventDCSC
 {
     // UML inherited base object
     commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
+    ENG_CircuitSegmentServiceModeKind CircuitSegmentServiceMode = 2;
     // MISSING DOCUMENTATION!!!
     commonmodule.StatusSPS Island = 3;
     // MISSING DOCUMENTATION!!!
@@ -104,16 +106,16 @@ message CoordinationEventDCSC
 }
 
 // Switch event
-message CoordinationEvent
+message CircuitSegmentEvent
 {
     // UML inherited base object
     commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CoordinationEventDCSC coordinationEventDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentEventDCSC circuitSegmentEventDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch event profile
-message CoordinationEventProfile
+message CircuitSegmentEventProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
@@ -121,17 +123,17 @@ message CoordinationEventProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    CoordinationEvent coordinationEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentEvent circuitSegmentEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 // Control), following 61850 naming convention.
-message CoordinationStatusDCSC
+message CircuitSegmentStatusDCSC
 {
     // UML inherited base object
     commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
+    ENG_CircuitSegmentServiceModeKind CircuitSegmentServiceMode = 2;
     // MISSING DOCUMENTATION!!!
     commonmodule.StatusDPS Island = 3;
     // MISSING DOCUMENTATION!!!
@@ -147,16 +149,16 @@ message CoordinationStatusDCSC
 }
 
 // Switch event
-message CoordinationStatus
+message CircuitSegmentStatus
 {
     // UML inherited base object
     commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CoordinationStatusDCSC coordinationStatusDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentStatusDCSC circuitSegmentStatusDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch event profile
-message CoordinationStatusProfile
+message CircuitSegmentStatusProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
@@ -164,6 +166,6 @@ message CoordinationStatusProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    CoordinationStatus coordinationStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    CircuitSegmentStatus circuitSegmentStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
