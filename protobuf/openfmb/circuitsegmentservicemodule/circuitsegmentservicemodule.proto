@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.1.0).eap
-// Wednesday, June 29, 2022 1:10:12 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
+// Thursday, March 2, 2023 10:40:44 PM UTC
 
 // This module is an early alpha release and subject to change. It is NOT part of the gateway test
 // procedure for OpenFMB certification.
@@ -162,7 +162,7 @@ message CircuitSegmentStatusProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
-    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.1.0).eap
-// Wednesday, June 29, 2022 1:10:12 AM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
+// Thursday, March 2, 2023 10:40:44 PM UTC
 
 // This module is an early alpha release and subject to change. It is NOT part of the gateway test
 // procedure for OpenFMB certification.
@@ -75,7 +75,7 @@ message InterconnectionSchedule
 }
 
 // Planned interconnection schedule profile
-message PlannedInterconnectionScheduleProfile
+message InterconnectionPlannedScheduleProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
@@ -91,7 +91,7 @@ message PlannedInterconnectionScheduleProfile
 }
 
 // Requested interconnection schedule profile
-message RequestedInterconnectionScheduleProfile
+message InterconnectionRequestedScheduleProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
