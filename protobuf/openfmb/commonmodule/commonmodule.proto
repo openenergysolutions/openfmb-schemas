@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
-// Thursday, March 2, 2023 10:40:44 PM UTC
+// Monday, April 3, 2023 7:34:35 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -1827,6 +1827,10 @@ message WYE
     CMV phsB = 4;
     // Value of phase C.
     CMV phsC = 5;
+    // Residual current, as the algebraic sum of the instantaneous values of currents flowing through
+    // all live conductors of a circuit at one point of the electrical installation ('phsA.instCVal'+'phsB
+    // instCVal'+'phsC.instCVal').
+    CMV res = 6;
 }
 
 // Specialized 61850 MMXU LN class
