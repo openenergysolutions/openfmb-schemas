@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
-// Thursday, May 2, 2024 5:16:49 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)-oes.eapx
+// Thursday, May 30, 2024 5:06:52 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -1841,6 +1841,37 @@ message RampRate
     google.protobuf.FloatValue positiveReactivePowerKVArPerMin = 3;
     // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue positiveRealPowerKWPerMin = 4;
+}
+
+// Specialized 61850 MENV LN class
+message ReadingMENV
+{
+    // MISSING DOCUMENTATION!!!
+    MV CloudCvr = 2;
+    // CO2 emission
+    MV CO2Em = 3;
+    // Environment Humidity
+    MV EnvHum = 4;
+    // Environment Pressure
+    MV EnvPres = 5;
+    // Environment Temperature
+    MV EnvTmp = 6;
+    // Horizontal Wind direction
+    MV HorWdDir = 7;
+    // Horizontal Wind Speed
+    MV HorWdSpd = 8;
+    // Humidity
+    MV Hum = 9;
+    // Pressure
+    MV Pres = 10;
+    // Solar Radiation
+    MV SolRad = 11;
+    // Temperature
+    MV Tmp = 12;
+    // Vertical Wind direction
+    MV VerWdDir = 13;
+    // Vertical Wind Speed
+    MV VerWdSpd = 14;
 }
 
 // Generic reading message information
