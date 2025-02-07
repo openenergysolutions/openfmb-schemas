@@ -3,32 +3,28 @@ syntax = "proto3";
 // OpenFMB Operational Model (61850-CIM) (v2.2.1)_01272025.eapx
 // Thursday, February 6, 2025 8:47:58 PM UTC
 
-package metermodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/metermodule";
-option java_package = "openfmb.metermodule";
+package environmentmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/environmentmodule";
+option java_package = "openfmb.environmentmodule";
 option java_multiple_files = true;
-option csharp_namespace = "openfmb.metermodule";
+option csharp_namespace = "openfmb.environmentmodule";
 
 import "uml.proto";
 import "commonmodule/commonmodule.proto";
 
-// Resource reading value
-message MeterReading
+// Environment sensor reading value
+message EnvironmentReading
 {
     // UML inherited base object
     commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseMMTN phaseMMTN = 2;
+    commonmodule.ReadingMENV readingMENV = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.ReadingMMTR readingMMTR = 3;
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ReadingMMXU readingMMXU = 4;
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ReadingMMDC readingMMDC = 5;
+    commonmodule.ReadingMMET readingMMET = 3;
 }
 
-// Resource reading profile
-message MeterReadingProfile
+// Environment reading profile
+message EnvironmentReadingProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
@@ -36,6 +32,6 @@ message MeterReadingProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.Meter meter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    MeterReading meterReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    EnvironmentReading environmentrReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
