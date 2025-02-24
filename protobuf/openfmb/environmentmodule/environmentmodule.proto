@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1)_01272025.eapx
-// Thursday, February 6, 2025 8:47:58 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)_02212025.eapx
+// Monday, February 24, 2025 1:20:33 PM UTC
 
 package environmentmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/environmentmodule";
@@ -30,8 +30,8 @@ message EnvironmentReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.Meter meter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.Sensor sensor = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    EnvironmentReading environmentrReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    EnvironmentReading environmentReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
